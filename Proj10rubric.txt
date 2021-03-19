@@ -1,0 +1,174 @@
+Assignment 10 Rubric
+Criteria	Ratings	Pts
+Code Style Deduction: Used single letter variable names. Known math symbols are okay. (-2 Points)
+0 pts
+Full Marks
+Meets style guidelines
+0 pts
+Point Deduction
+0 / 0 pts
+Code Style Deduction: Did not format code correctly. (Colons, indentation, at least 1 blank line after function/methods/classes, name conventions such as snake_case. Overall.) (-2 Points)
+0 pts
+Full Marks
+Meets style guidelines
+0 pts
+Point Deduction
+0 / 0 pts
+Code Style Deduction: Each wrong file/function/class name. (-1 Point each)
+0 pts
+Full Marks
+Meets style guidelines
+0 pts
+Point Deduction
+0 / 0 pts
+Code Style Deduction: For each file without required comment headers. (Including inaccurate descriptions.) (-1 Point)
+0 pts
+Full Marks
+Meets style guidelines
+0 pts
+Point Deduction
+0 / 0 pts
+Un-covered Material: Used materials not yet covered in the class. (-3 Points)
+0 pts
+Full Marks
+Used only approved materials
+0 pts
+Point Deduction
+Used un-covered materials
+0 / 0 pts
+Code Style Deduction: For each function without a required docstring. (Including inaccurate descriptions.) (-1 Point)
+0 pts
+Full Marks
+Meets style guidelines
+0 pts
+Point Deduction
+Comments
+missing required docstring for init method
+-1 / 0 pts
+Correctly used an init method to set up board, sets each position to be empty, sets the current state to “UNFINISHED”, and sets whose turn it is. (This last one might be done in initial_placement, but something to hold the turn state should be in the class.)
+6 to >4.8 pts
+Full Marks
+4.8 to >0 pts
+Partial Marks
+0 pts
+No Marks
+6 / 6 pts
+Created getter method for state field
+3 pts
+Full Marks
+0 pts
+No Marks
+3 / 3 pts
+initial_placement method has correct parameters.
+3 pts
+Full Marks
+0 pts
+No Marks
+3 / 3 pts
+initial_placement method returns True and False in appropriate situations.
+3 pts
+Full Marks
+0 pts
+No Marks
+3 / 3 pts
+initial_placement method correctly places builders.
+3 pts
+Full Marks
+0 pts
+No Marks
+3 / 3 pts
+initial_placement method does not allow two builders to be placed in the same location or any other illegal position.
+3 pts
+Full Marks
+0 pts
+No Marks
+3 / 3 pts
+make_move method has correct parameters.
+3 pts
+Full Marks
+0 pts
+No Marks
+3 / 3 pts
+make_move method correctly places builders
+3 pts
+Full Marks
+0 pts
+No Marks
+3 / 3 pts
+make_move method correctly returns True and False in appropriate situations.
+4 pts
+Full Marks
+0 pts
+No Marks
+4 / 4 pts
+make_move method correctly does not allow builders to occupy any illegal position, such as a square that is already occupied, has a tower more than one level up from their current level, or has a four story tower.
+6 to >3 pts
+Full Marks
+3 to >0 pts
+Partial Marks
+0 pts
+No Marks
+6 / 6 pts
+make_move method correctly builds tower segments.
+4 pts
+Full Marks
+0 pts
+No Marks
+4 / 4 pts
+make_move method does not allow towers to be built in illegal squares or beyond height limits.
+5 to >4 pts
+Full Marks
+4 to >0 pts
+Partial Marks
+0 pts
+No Marks
+5 / 5 pts
+make_move method checks and updates game state.
+4 pts
+Full Marks
+0 pts
+No Marks
+4 / 4 pts
+make_move method correctly determines if either ‘x’ or ‘o’ wins.
+6 to >4.8 pts
+Full Marks
+4.8 to >0 pts
+Partial Marks
+0 pts
+No Marks
+6 / 6 pts
+make_move does not allow a move unless it is that player’s turn and correctly changes whose turn it is after the move.
+4 pts
+Full Marks
+0 pts
+No Marks
+Comments
+make_move method does change the "turn" at the end of a move, but it does not test that it is that player's turn before the move is made. There is an 'else' branch that returns False if it's not that player's turn, but it will never be reached. The current turn should be tested first, instead of at the end.
+2 / 4 pts
+DEDUCTION: Class uses non-private members for board or current state. (-2 Points)
+0 pts
+Full Marks
+0 pts
+No Marks
+0 / 0 pts
+DEDUCTION: Class has structural problems causing it to not function properly. (-6 Points)
+0 pts
+Full Marks
+0 pts
+No Marks
+Comments
+Program does not pass GradeScope because the builders were initialized to lists, and are not replaced with the coordinates placed in initial_placement method
+-6 / 0 pts
+Late Project Deduction (within 48 hours)
+0 pts
+Full Marks
+0 pts
+Point Deduction
+0 / 0 pts
+Deduction: Typos/incorrect formatting (Including extraneous/incorrect print statements). (-6 Points)
+0 pts
+Full Marks
+0 pts
+Point Deduction
+0 / 0 pts
+Total Points: 51
