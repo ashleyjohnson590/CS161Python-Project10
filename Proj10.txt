@@ -1,0 +1,174 @@
+#Author: Ashley Johnson
+#Date: 11/30/2020
+#Description: Program is a two player game on a 5x5 board. each players' builders will move around the board and add levels to towers.
+# The winner is the first one to move a builder on top of a 3-story tower.First, x places her
+# two builders on the board, then o places her two builders on the board. Throughout the game,
+# no two builders can ever occupy the same square.  After the initial placements are complete,
+# x must move either one of her builders to an adjacent square (one square orthogonally or
+# diagonally). Builders always move to the top of the tower on their destination square.
+# Builders can move any number of levels down, but can move at most 1 level up (they can also
+# stay at the same level).After a builder moves, it **must** add a level to an adjacent square
+# (it must be adjacent to the builder that moved). A level cannot be added to a square that is
+# occupied by any builder. Once a tower has a 4th level, no further levels can be added. After
+# x has moved and built, the players alternate moving and building in this way until the game
+# ends. If a player moves one of her builders on top of a 3-story tower **or** if her opponent
+# will not have a legal move available, then she has won.
+class BuildersGame:
+    """class initializes board, turn tracker, and player coordinates. """
+    def __init__(self):
+        self.__board = [[[] for x in range(5)] for y in range(5)]
+        self.__current_state = "UNFINISHED"
+        self.__turn = 'x'
+        self.xb1x = []  # to track X's builder 1's coordinates
+        self.xb1y = []
+        self.xb2x = [] # to track X's builder 2's coordinates
+        self.xb2y = []
+        self.ob1x = []  # to track O's builder 1's coordinates
+        self.ob1y = []
+        self.ob2x = [] # to track O's builder 2's coordinates
+        self.ob2y = []
+
+
+    def get_current_state(self):
+        """ function gets current state of game."""
+        return self.__current_state
+
+    def _is_adjacent(self, x1, y1, x2, y2):
+        """fuction checks if coordinates are adjacent to each other"""
+
+        if (x1 == x2 and y1 + 1 == y2) or (x1 == x2 and y1 - 1 == y2) or (x1 + 1 == x2 and y1 - 1 == y2) or (
+                x1 + 1 == x2 and y2 == y1) or (x1 + 1 == x2 and y1 + 1 == y2) \
+                or (x1 - 1 == x2 and y1 - 1 == y2) or (x1 - 1 == x2 and y1 == y2) or (x1 - 1 == x2 and y1 + 1 == y2):
+
+            return True
+
+        else:
+
+            return False
+
+    def initial_placement(self, x1, y1, x2, y2, player):
+        """ function lets players take turns placing 2 builders on board until every board space
+        is occupied."""
+        if player == 'x' and self.__turn != 'o':
+            self.__turn = 'o'
+            str_of_b1 = [self.xb1x][self.xb1y]
+            str_of_b2 = [self.xb2x][self.xb2y]
+            if str_of_b1 not in self.__board and str_of_b2 not in self.__board:
+                self.__board.append(str_of_b1)
+                self.__board.append(str_of_b2)
+                return True
+
+            else:
+                print("Builder Already Occupied")
+                return False
+
+        elif player == 'o' and self.__turn != 'x':
+            self.__turn = 'x'
+            str_of_b1 = [self.ob1x][self.ob1y]
+            str_of_b2 = [self.ob2x][self.ob2y]
+            """checks if given initial placement is already occupied"""
+            if str_of_b1 not in self.__board and str_of_b2 not in self.__board:
+                self.__board.append(str_of_b1)
+                self.__board.append(str_of_b2)
+                return True
+
+            else:
+                print("Builder Already Occupied")
+                return False
+
+        else:
+            print("Wrong Intitialization")
+            return False
+
+    def make_move(self, x1, y1, x2, y2, x3, y3):
+        """function takes takes six parameters: the row and column of the piece to move,
+        the row and column of the square it's moving to, and the row and column of where'
+         to build"""
+
+        if self.__turn == 'x':
+            self.__turn = 'o'
+            str_of_builder = [self.xb1x][self.xb1y]
+            str_of_destination = [self.xb2x][self.xb2y]
+
+            if self.ob1x not in str_of_builder and self.ob1y not in str_of_builder:
+
+                if self.ob1x != str_of_destination and self.ob2x != str_of_destination and self.xb1x != str_of_destination and self.xb2x != str_of_destination and self.ob1y != str_of_destination and self.ob2y != str_of_destination and self.xb1y != str_of_destination and self.xb1y != str_of_destination:
+
+                    if self.__board[x2][y2] - self.__board[x1][y1] < 2:
+                        if self._is_adjacent(x2, y2, x3, y3):
+                            if self.xb1x == str_of_builder:
+                                self.xb1x = str_of_destination
+                            else:
+                                self.xb2x = str_of_destination
+                            # below is x win condition
+                            if self.__board[x2][y2] == 3:
+                                self.current_state = 'X_WON'
+                                return True
+                            # below condtion is if the user increases the adjacent tower by 1
+                            if self.__board[x2][y2] != 3 and self.__board[x2][y2] != 4:
+                                self.__board[x2][y2] += 1
+                            # below condition is if the user has no legal moves and 0 wins
+                            if self.__board[x2][y2] != 3 and self.__board[x2][y2] == 4:
+                                self.current_state = 'O_WON'
+                                return True
+
+                        else:
+                            print('Invalid Reason The Block Is Not Adjacent')
+                            self.__turn = 'x'  # made invalid move so turn comes back to x
+                            return False
+                    else:
+                        print('Invalid Reason Attempting To Go To Building That Has Height Difference Bigger Than 1')
+                        self.__turn = 'x'  # made invalid move so turn comes back to x
+                        return False
+
+                else:
+                    print("Invalid Reason Destination Is Already Occupied")
+                    self.__turn = 'x'
+                    return False
+            else:
+                print("Invalid Reason Trying To Select Other Player's Builder")
+                self.__turn = 'x'
+                return False
+
+        elif self.__turn == 'o':
+            self.__turn = 'x'
+            str_of_builder = self.ob1x + self.ob1y
+            str_of_destination = self.ob2x + self.ob2y
+            if self.xb1x not in str_of_builder and self.xb2x not in str_of_builder and self.xb1y not in str_of_builder and self.xb2y not in str_of_builder:
+                if self.ob1x not in str_of_destination and self.ob2x not in str_of_destination and self.ob1y not in str_of_destination and self.ob2y not in str_of_destination and self.xb1x not in str_of_destination and self.xb1y not in str_of_destination:
+                    if self.__board[x2][y2] - self.__board[x1][y1] < 2:
+                        if self._is_adjacent(x2, y2, x3, y3):
+                            if self.ob1x == str_of_builder:
+                                self.ob1x = str_of_destination
+                            else:
+                                self.ob2 = str_of_destination
+                            if self.__board[x2][y2] == 3:
+                                self.__current_state = 'O_WON'
+                                return True
+                            if self.__board[x2][y2] != 3 and self.__board[x2][y2] != 4:
+                                self.__board[x2][y2] += 1
+                            if self.__board[x2][y2] != 3 and self.__board[x2][y2] == 4:
+                                self.__current_state = 'X_WON'
+                                return True
+
+                        else:
+                            print('Invalid Reason The Block Is Not Adjacent')
+                            self.__turn = 'o'
+                            return False
+                    else:
+                        print('Invalid Reason Attempting To Go To Building That Has Height Difference Bigger Than 1')
+                        self.__turn = 'o'
+                        return False
+
+                else:
+                    print("Invalid Reason Destination Is Already Occupied")
+                    self.__turn = 'o'
+                    return False
+            else:
+                print("Invalid Reason Trying To Select Other Player's Builder")
+                self.__turn = 'o'
+                return False
+
+        else:
+            print("Invalid Reason Not Your Turn")
+            return False
